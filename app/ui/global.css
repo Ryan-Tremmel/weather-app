@@ -1,0 +1,37 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+}
+
+/* Move code here into separate file later */
+/* FORM */
+.form {
+    display: flex;
+    gap: 1rem
+}
+
+.text-input {;
+    width: 75%;
+    font-size: 1.6rem;
+}
