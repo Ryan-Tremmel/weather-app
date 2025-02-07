@@ -2,7 +2,7 @@ import '@/app/ui/global.css';
 
 export const metadata = {
   title: 'Weather Application',
-  description: 'Weather app that utilizes cards to show current weather.',
+  description: 'Weather app utilizing geolocation to show current weather.',
 };
 
 export default function RootLayout({ children }) {

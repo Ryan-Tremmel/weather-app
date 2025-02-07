@@ -1,0 +1,9 @@
+.form {
+  display: flex;
+  gap: 1rem;
+
+  &__text-input {
+    width: 75%;
+    font-size: 1.6rem;
+  }
+}
