@@ -1,4 +1,4 @@
-import '@/app/ui/global.css';
+import '@/app/ui/global.scss';
 
 export const metadata = {
   title: 'Weather Application',

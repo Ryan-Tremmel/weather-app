@@ -1,0 +1,25 @@
+@import './variables';
+
+.geolocationPopup {
+  position: absolute;
+  top: 20vh;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: linear-gradient(to bottom right, #58585e, #292931);
+  border: 0.35px solid $color-primary;
+  padding: 2rem;
+  z-index: 10;
+  transform: translate(-50%);
+
+  &__buttons {
+    display: flex;
+  }
+
+  &--hidden {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+  }
+}

@@ -1,9 +1,106 @@
+@import './variables';
+
+/* Form Elements */
 .form {
-  display: flex;
-  gap: 1rem;
+  margin-top: 15rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  justify-items: center;
+  row-gap: 2rem;
+
+  &__section-top {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Aligns everything to the bottom */
+    min-width: 75%;
+  }
+
+  &__text-label {
+    position: absolute;
+    top: -2.5rem;
+    left: 2rem;
+  }
 
   &__text-input {
-    width: 75%;
+    background: linear-gradient(to right, #292931, #58585e, #292931);
+    color: $color-primary;
+    border: 0.35px solid $color-primary;
+    border-radius: 100px;
+    padding: 2rem 1rem;
+    width: 100%;
     font-size: 1.6rem;
+  }
+}
+
+/* Button Elements in Form */
+.btn {
+  &-temp {
+    padding: 2rem 1rem;
+    background-color: transparent;
+    border: 0.35px solid;
+    border-radius: 10px;
+    min-width: 3rem;
+
+    &--f {
+      color: $color-f;
+      border-color: $color-f;
+      transition: .15s all;
+
+      &:hover {
+        background-color: $color-f;
+        color: white;
+      }
+      &:focus {
+        background-color: $color-f--active;
+        border-color: $color-f--active;
+        color: white;
+      }
+      &--active {
+        background-color: $color-f--active;
+        border-color: $color-f--active;
+        color: white;
+      }
+    }
+    &--c {
+      color: $color-c;
+      border-color: $color-c;
+      transition: .15s all;
+
+      &:hover {
+        background-color: $color-c;
+        color: white;
+      }
+      &:focus {
+        background-color: $color-c--active;
+        border-color: $color-c--active;
+      }
+      &--active {
+        background-color: $color-c--active;
+        border-color: $color-c--active;
+        color: white;
+      }
+    }
+    &--k {
+      color: $color-k;
+      border-color: $color-k;
+      transition: .15s all;
+
+      &:hover {
+        background-color: $color-k;
+        color: white;
+      }
+      &:focus {
+        background-color: $color-k--active;
+        border-color: $color-k--active;
+        color: white;
+      }
+      &--active {
+        background-color: $color-k--active;
+        border-color: $color-k--active;
+        color: white;
+      }
+    }
   }
 }

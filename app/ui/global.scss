@@ -1,0 +1,41 @@
+@import './styles/variables.scss';
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    color: $color-primary;
+    background-color: $background-color--primary;
+}
+
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-size: 2rem;
+}
+
+.disabled {
+    pointer-events: none;
+    filter: blur(2px);
+    opacity: 0.5;
+}
+
+.weatherData__section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+}
+
