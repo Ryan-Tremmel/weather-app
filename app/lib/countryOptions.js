@@ -1,5 +1,4 @@
 const countryOptions = [
-  {},
   { name: 'Argentina', code: 'AR' },
   { name: 'Australia', code: 'AU' },
   { name: 'Austria', code: 'AT' },

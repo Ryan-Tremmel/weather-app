@@ -2,9 +2,9 @@
 
 import '@/app/ui/styles/Form.scss';
 import { useState } from 'react';
+import Dropdown from '@/app/ui/Dropdown';
 import { fetchWeatherData } from '@/app/pages/api/data';
 import useGeolocation from '@/app/lib/useGeolocation';
-import countryOptions from '@/app/lib/countryOptions';
 
 export default function Form({
   useLocation,
@@ -24,7 +24,7 @@ export default function Form({
 
   // Ensures only letters are entered and not numbers
   const handleTextDisplayChange = (e) => {
-    const lettersOnly = e.target.value.replace(/[^A-Za-z]/g, '');
+    const lettersOnly = e.target.value.replace(/[^A-Za-z\s]/g, '');
     setCityInputText(lettersOnly);
   };
 
@@ -35,6 +35,8 @@ export default function Form({
      */
     e.preventDefault();
     setSearchMethod(e.target.id);
+    setCityInputText('');
+    setCountry(null);
   };
 
   // Selects the unit of measurement based on what the user selects
@@ -71,14 +73,24 @@ export default function Form({
   };
 
   // Maps through the countryOptions array with each country being an object with a name and country code, then displays as options
-  const populateSelect = () => {
+
+  // const populateSelect = () => {
+  //   // NEED TO ADD FALLBACK IF COUNTRY IS NOT LISTED
+  //   return countryOptions.map((country) => ({
+  //     key: country.code ? country.code : '0',
+  //     value: country.code,
+  //     label: country.name,
+  //   }));
+  // };
+
+  /*const populateSelect = () => {
     // NEED TO ADD FALLBACK IF COUNTRY IS NOT LISTED
     return countryOptions.map((country) => (
       <option key={country.code ? country.code : '0'} value={country.code}>
         {country.name}
       </option>
     ));
-  };
+  };*/
 
   // TESTING PURPOSES ONLY - REMOVE BEFORE PRODUCTION
   const logData = (e) => {
@@ -95,7 +107,7 @@ export default function Form({
         </label>
         <input
           id="text-box"
-          className="form__text-input"
+          className={`form__text-input ${searchMethod === 'geoLoc' ? 'disabled--input' : ''}`}
           name="text-box"
           type="text"
           placeholder="Please enter your desired city"
@@ -103,14 +115,19 @@ export default function Form({
           value={cityInputText}
           required
         />
-        <select
-          name="countries"
-          id="countries"
-          value={country}
-          onChange={(e) => setCountry(e.target.value)}
-        >
-          {populateSelect()}
-        </select>
+        <Dropdown
+          country={country}
+          setCountry={setCountry}
+          searchMethod={searchMethod}
+        />
+        {/*<select*/}
+        {/*  name="countries"*/}
+        {/*  id="countries"*/}
+        {/*  value={country}*/}
+        {/*  onChange={(e) => setCountry(e.target.value)}*/}
+        {/*>*/}
+        {/*  {populateSelect()}*/}
+        {/*</select>*/}
         <button onClick={handleFormSubmit}>Submit</button>
       </div>
       <div className="form__section-bottom">

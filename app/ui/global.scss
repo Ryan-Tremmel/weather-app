@@ -30,6 +30,11 @@ body {
     pointer-events: none;
     filter: blur(2px);
     opacity: 0.5;
+
+    &--input {
+        pointer-events: none;
+        filter: blur(1px) brightness(85%);
+    }
 }
 
 .weatherData__section {
