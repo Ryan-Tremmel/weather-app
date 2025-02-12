@@ -13,10 +13,6 @@
   z-index: 10;
   transform: translate(-50%);
 
-  &__buttons {
-    display: flex;
-  }
-
   &--hidden {
     display: none;
     opacity: 0;

@@ -4,19 +4,29 @@ import { LoadingSpinner } from '@/app/ui/skeletons';
 
 export default function Card({ weatherData, cardType, unitOfMeasurement }) {
   if (weatherData) {
-    let unit = {};
+    const unit = {
+      tempValue: null,
+      speedValue: null,
+    };
+
     switch (unitOfMeasurement) {
       case 'imperial':
-        unit.temp = 'Fahrenheit';
-        unit.speed = 'miles/hour';
+        unit.tempLabel = 'Fahrenheit';
+        unit.tempValue = 0;
+        unit.speedLabel = 'miles/hour';
+        unit.speedValue = 0;
         break;
       case 'metric':
-        unit.temp = 'Celsius';
-        unit.speed = 'meters/sec';
+        unit.tempLabel = 'Celsius';
+        unit.tempValue = 0;
+        unit.speedLabel = 'meters/sec';
+        unit.speedValue = 0;
         break;
       default:
         unit.temp = 'Celsius';
+        unit.tempValue = 0;
         unit.speed = 'meters/sec';
+        unit.speedValue = 0;
     }
 
     switch (cardType) {

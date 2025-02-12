@@ -31,11 +31,21 @@
     padding: 2rem 1rem;
     width: 100%;
     font-size: 1.6rem;
+    outline: none;
+    transition: 0.2s;
   }
+
   &__select {
     position: absolute;
     right: 5.5%;
     top: 12%;
+    z-index: 10;
+    transition: 0.2s;
+
+  }
+
+  &__input--focused {
+  transform: scale(105%);
   }
 }
 

@@ -5,7 +5,13 @@ import dynamic from 'next/dynamic';
 import Select from 'react-select';
 import countryOptions from '@/app/lib/countryOptions';
 
-export default function Dropdown({ country, setCountry, searchMethod }) {
+export default function Dropdown({
+  country,
+  setCountry,
+  searchMethod,
+  isFocused,
+  setIsFocused,
+}) {
   // NEEDED FOR HYDRATION BUG WITH REACT-SELECT - CAN BE SAFELY REMOVED ONCE BUG IS FIXED
   // const Select = dynamic(() => import('react-select'), { ssr: false });
 
@@ -21,26 +27,41 @@ export default function Dropdown({ country, setCountry, searchMethod }) {
   const customStyles = {
     control: (provided) => ({
       ...provided,
-      // height: '40px'
       backgroundColor: 'transparent',
       border: 'none',
+      boxShadow: 'none',
       padding: '2px 10px',
       fontSize: '2.5rem',
+      outline: 'none',
       width: 'max-content',
+    }),
+    menu: (provided) => ({
+      ...provided,
+      background: 'linear-gradient(to bottom right, #a6a6b7, #666675)',
+      outline: 'none',
     }),
     input: (provided) => ({
       ...provided,
-      color: '$color-primary',
+      color: '#97979b',
     }),
     singleValue: (provided) => ({
       ...provided,
-      color: '$color-primary',
+      color: '#97979b',
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isSelected
+        ? '#cecee3' // Background color when selected
+        : state.isFocused
+          ? '#cecee3' // Background color when hovered
+          : 'transparent',
+      color: state.isSelected ? '#3d3d3d' : '#3d3d3d',
     }),
   };
 
   return (
     <div
-      className={`input-dropdown-wrapper form__select ${searchMethod === 'geoLoc' ? 'disabled' : ''}`}
+      className={`input-dropdown-wrapper form__select ${searchMethod === 'geoLoc' ? 'disabled--input' : ''} ${isFocused ? 'form__input--focused' : ''}`}
     >
       <Select
         isDisabled={searchMethod === 'geoLoc'}
@@ -52,6 +73,8 @@ export default function Dropdown({ country, setCountry, searchMethod }) {
         instanceId="country-select"
         isSearchable
         isClearable
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
       />
     </div>
   );

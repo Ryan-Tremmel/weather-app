@@ -1,0 +1,10 @@
+@import './variables';
+
+.error__global {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $background-color--primary;
+  margin-top: 30vh;
+}

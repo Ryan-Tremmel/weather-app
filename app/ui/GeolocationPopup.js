@@ -7,11 +7,8 @@ export default function GeolocationPopup({ setIsPopupOpen, setUseLocation }) {
   const handleClick = (e) => {
     e.preventDefault();
     setIsPopupOpen(false);
-    if (e.target.id === 'denyGeoloc') setIsHidden(true);
-    else if (e.target.id === 'acceptGeoloc') {
-      setUseLocation(true);
-      setIsHidden(true);
-    }
+    setUseLocation(true);
+    setIsHidden(true);
   };
 
   return (
@@ -21,17 +18,10 @@ export default function GeolocationPopup({ setIsPopupOpen, setUseLocation }) {
       <p>
         Some parts of this application require the use of your location. If you
         would like to fully utilize this app and have the ability to use your
-        coordinates to obtain the current weather, please press "Use My
-        Location" below.
+        coordinates to obtain the current weather, please allow your browser to
+        use your location.
       </p>
-      <div className="geolocationPopup__buttons">
-        <button id="denyGeoloc" onClick={handleClick}>
-          Don't Use My Location
-        </button>
-        <button id="acceptGeoloc" onClick={handleClick}>
-          Use My Location
-        </button>
-      </div>
+      <button onClick={handleClick}>I understand</button>
     </div>
   );
 }

@@ -13,9 +13,10 @@ export default function Form({
   setWeatherData,
   unitOfMeasurement,
   setUnitOfMeasurement,
+  setError,
 }) {
-  const [cityInputLabelText, setCityInputLabelText] = useState('');
   const [cityInputText, setCityInputText] = useState('');
+  const [isFocused, setIsFocused] = useState(false);
   const [country, setCountry] = useState('');
   const [searchMethod, setSearchMethod] = useState('city');
   const [unitOfMeasurementActive, setUnitOfMeasurementActive] = useState(null);
@@ -36,7 +37,7 @@ export default function Form({
     e.preventDefault();
     setSearchMethod(e.target.id);
     setCityInputText('');
-    setCountry(null);
+    setCountry('');
   };
 
   // Selects the unit of measurement based on what the user selects
@@ -69,7 +70,17 @@ export default function Form({
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setWeatherData(await fetchWeatherData(formData));
+    const data = await fetchWeatherData(formData);
+    if (data.error) {
+      console.log(data.error);
+      setError(data.error);
+      setWeatherData(null);
+      setCityInputText('');
+      setCountry('');
+    } else {
+      setError(null);
+      setWeatherData(data);
+    }
   };
 
   // Maps through the countryOptions array with each country being an object with a name and country code, then displays as options
@@ -107,18 +118,24 @@ export default function Form({
         </label>
         <input
           id="text-box"
-          className={`form__text-input ${searchMethod === 'geoLoc' ? 'disabled--input' : ''}`}
+          className={`form__text-input ${searchMethod === 'geoLoc' ? 'disabled--input' : ''}
+          ${isFocused ? 'form__input--focused' : ''}`}
           name="text-box"
           type="text"
           placeholder="Please enter your desired city"
           onChange={handleTextDisplayChange}
           value={cityInputText}
           required
+          autoComplete="off"
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
         />
         <Dropdown
           country={country}
           setCountry={setCountry}
           searchMethod={searchMethod}
+          isFocused={isFocused}
+          setIsFocused={setIsFocused}
         />
         {/*<select*/}
         {/*  name="countries"*/}

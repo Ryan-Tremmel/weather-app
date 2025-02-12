@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import GeolocationPopup from '@/app/ui/GeolocationPopup';
+import NotFound from '@/app/ui/NotFound';
 import Form from '@/app/ui/Form';
 import Card from '@/app/ui/Card';
 
@@ -9,6 +10,10 @@ export default function app() {
   const [isPopupOpen, setIsPopupOpen] = useState(true);
   const [useLocation, setUseLocation] = useState(false);
   const [fetchedData, setFetchedData] = useState(false);
+  const [statusMessage, setStatusMessage] = useState(
+    'Getting current weather...',
+  );
+  const [error, setError] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
   const [unitOfMeasurement, setUnitOfMeasurement] = useState('standard');
 
@@ -26,6 +31,7 @@ export default function app() {
           setWeatherData={setWeatherData}
           unitOfMeasurement={unitOfMeasurement}
           setUnitOfMeasurement={setUnitOfMeasurement}
+          setError={setError}
         />
         <section className="weatherData__section">
           {!fetchedData ? (
@@ -56,6 +62,7 @@ export default function app() {
               </div>
             </>
           )}
+          {error ? <NotFound /> : ''}
         </section>
       </main>
     </div>
