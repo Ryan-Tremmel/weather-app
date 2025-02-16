@@ -21,7 +21,9 @@ export default function GeolocationPopup({ setIsPopupOpen, setUseLocation }) {
         coordinates to obtain the current weather, please allow your browser to
         use your location.
       </p>
-      <button onClick={handleClick}>I understand</button>
+      <button className="btn btn--popup" onClick={handleClick}>
+        I understand
+      </button>
     </div>
   );
 }

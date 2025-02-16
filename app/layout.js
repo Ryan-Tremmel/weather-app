@@ -1,4 +1,5 @@
 import '@/app/ui/global.scss';
+import { roboto } from '@/app/ui/fonts';
 
 export const metadata = {
   title: 'Weather Application',
@@ -8,7 +9,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={roboto.className}>{children}</body>
     </html>
   );
 }

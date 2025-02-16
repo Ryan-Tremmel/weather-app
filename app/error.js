@@ -13,6 +13,7 @@ export default function Error({ error, reset }) {
     <main className="error__global">
       <h2>Looks like a meteor shower! Something went wrong...</h2>
       <button
+        className="btn"
         onClick={
           // Attempt to recover by trying to re-render the page
           () => reset()

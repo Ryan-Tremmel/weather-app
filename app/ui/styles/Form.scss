@@ -2,7 +2,7 @@
 
 /* Form Elements */
 .form {
-  margin-top: 15rem;
+  margin-top: 5rem;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(2, 1fr);
@@ -25,20 +25,21 @@
 
   &__text-input {
     background: linear-gradient(to right, #292931, #58585e, #292931);
-    color: $color-primary;
-    border: 0.35px solid $color-primary;
+    color: $color-text--primary;
+    border: 0.35px solid $color-text--primary;
     border-radius: 100px;
-    padding: 2rem 1rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    padding: 2rem 4rem;
     width: 100%;
-    font-size: 1.6rem;
+    font-size: 3rem;
     outline: none;
     transition: 0.2s;
   }
 
   &__select {
     position: absolute;
-    right: 5.5%;
-    top: 12%;
+    right: 1%;
+    top: 16%;
     z-index: 10;
     transition: 0.2s;
 
@@ -47,16 +48,44 @@
   &__input--focused {
   transform: scale(105%);
   }
+
+  &__section-bottom {
+    display: flex;
+    gap: 6rem;
+
+    &-method, &-units, &-submit {
+      display: flex;
+      gap: 1rem;
+    }
+  }
 }
 
 /* Button Elements in Form */
 .btn {
+  &-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: fit-content;
+
+    &-text {
+      pointer-events: none;
+    }
+
+    &-icon {
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+
   &-temp {
     padding: 2rem 1rem;
     background-color: transparent;
     border: 0.35px solid;
     border-radius: 10px;
-    min-width: 3rem;
+    font-weight: 700;
+    min-width: 100px;
 
     &--f {
       color: $color-f;
@@ -67,7 +96,8 @@
         background-color: $color-f;
         color: white;
       }
-      &:focus {
+
+      &:focus, &:active {
         background-color: $color-f--active;
         border-color: $color-f--active;
         color: white;
@@ -78,6 +108,7 @@
         color: white;
       }
     }
+
     &--c {
       color: $color-c;
       border-color: $color-c;
@@ -87,7 +118,7 @@
         background-color: $color-c;
         color: white;
       }
-      &:focus {
+      &:focus, &:active {
         background-color: $color-c--active;
         border-color: $color-c--active;
       }
@@ -97,6 +128,7 @@
         color: white;
       }
     }
+
     &--k {
       color: $color-k;
       border-color: $color-k;
@@ -106,7 +138,7 @@
         background-color: $color-k;
         color: white;
       }
-      &:focus {
+      &:focus, &:active {
         background-color: $color-k--active;
         border-color: $color-k--active;
         color: white;

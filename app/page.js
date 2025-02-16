@@ -14,8 +14,10 @@ export default function app() {
     'Getting current weather...',
   );
   const [error, setError] = useState(null);
-  const [weatherData, setWeatherData] = useState(null);
+  const [data, setData] = useState({ weatherData: null, countryData: null });
   const [unitOfMeasurement, setUnitOfMeasurement] = useState('standard');
+
+  console.log(data);
 
   return (
     <div className="app-container">
@@ -24,11 +26,15 @@ export default function app() {
         setUseLocation={setUseLocation}
       />
       <main className={isPopupOpen ? 'disabled' : ''}>
+        <div className="header__container">
+          <h1 className="header__text">Weather App</h1>
+          <ion-icon name="rainy-outline" className="header__icon"></ion-icon>
+        </div>
         <Form
           useLocation={useLocation}
           setFetchedData={setFetchedData}
-          weatherData={weatherData}
-          setWeatherData={setWeatherData}
+          data={data}
+          setData={setData}
           unitOfMeasurement={unitOfMeasurement}
           setUnitOfMeasurement={setUnitOfMeasurement}
           setError={setError}
@@ -39,23 +45,23 @@ export default function app() {
           ) : (
             <>
               <h2>
-                {weatherData
-                  ? `Viewing Current Weather for ${weatherData.name}`
+                {data.weatherData
+                  ? `Viewing Current Weather for ${data.weatherData.name}, ${data.countryData.name.common}`
                   : 'Getting current weather...'}
               </h2>
               <div className="card-container">
                 <Card
-                  weatherData={weatherData}
+                  data={data}
                   unitOfMeasurement={unitOfMeasurement}
                   cardType={'left'}
                 />
                 <Card
-                  weatherData={weatherData}
+                  data={data}
                   unitOfMeasurement={unitOfMeasurement}
                   cardType={'middle'}
                 />
                 <Card
-                  weatherData={weatherData}
+                  data={data}
                   unitOfMeasurement={unitOfMeasurement}
                   cardType={'right'}
                 />
@@ -65,6 +71,14 @@ export default function app() {
           {error ? <NotFound /> : ''}
         </section>
       </main>
+      <script
+        type="module"
+        src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+      ></script>
+      <script
+        noModule
+        src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+      ></script>
     </div>
   );
 }

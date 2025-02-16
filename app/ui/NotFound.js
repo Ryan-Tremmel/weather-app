@@ -1,3 +1,3 @@
 export default function NotFound() {
-  return <div>Not found.</div>;
+  return <h2>The city you searched for doesn't exist.</h2>;
 }

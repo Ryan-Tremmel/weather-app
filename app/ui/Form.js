@@ -9,8 +9,8 @@ import useGeolocation from '@/app/lib/useGeolocation';
 export default function Form({
   useLocation,
   setFetchedData,
-  weatherData,
-  setWeatherData,
+  data,
+  setData,
   unitOfMeasurement,
   setUnitOfMeasurement,
   setError,
@@ -20,7 +20,6 @@ export default function Form({
   const [country, setCountry] = useState('');
   const [searchMethod, setSearchMethod] = useState('city');
   const [unitOfMeasurementActive, setUnitOfMeasurementActive] = useState(null);
-
   const { location, geolocationError } = useGeolocation(useLocation);
 
   // Ensures only letters are entered and not numbers
@@ -70,16 +69,29 @@ export default function Form({
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const data = await fetchWeatherData(formData);
-    if (data.error) {
-      console.log(data.error);
-      setError(data.error);
-      setWeatherData(null);
+
+    if (unitOfMeasurement !== 'imperial' && unitOfMeasurement !== 'metric')
+      setUnitOfMeasurementActive('k');
+
+    const { weatherData, countryData, error } =
+      await fetchWeatherData(formData);
+
+    if (error) {
+      setError(error);
+      setData((prevState) => ({
+        ...prevState,
+        weatherData: null,
+        countryData: null,
+      }));
       setCityInputText('');
       setCountry('');
     } else {
       setError(null);
-      setWeatherData(data);
+      setData((prevState) => ({
+        ...prevState,
+        weatherData: weatherData,
+        countryData: countryData[0],
+      }));
     }
   };
 
@@ -103,12 +115,6 @@ export default function Form({
     ));
   };*/
 
-  // TESTING PURPOSES ONLY - REMOVE BEFORE PRODUCTION
-  const logData = (e) => {
-    e.preventDefault();
-    console.log(weatherData);
-  };
-
   return (
     <form className="form">
       <div className="form__section-top">
@@ -127,6 +133,7 @@ export default function Form({
           value={cityInputText}
           required
           autoComplete="off"
+          maxLength="50"
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
         />
@@ -137,46 +144,58 @@ export default function Form({
           isFocused={isFocused}
           setIsFocused={setIsFocused}
         />
-        {/*<select*/}
-        {/*  name="countries"*/}
-        {/*  id="countries"*/}
-        {/*  value={country}*/}
-        {/*  onChange={(e) => setCountry(e.target.value)}*/}
-        {/*>*/}
-        {/*  {populateSelect()}*/}
-        {/*</select>*/}
-        <button onClick={handleFormSubmit}>Submit</button>
       </div>
       <div className="form__section-bottom">
-        <button id="city" onClick={handleSelectionOfSearchMethod}>
-          Get Weather for a City
-        </button>
-        <button id="geoLoc" onClick={handleSelectionOfSearchMethod}>
-          Get Weather for my Location
-        </button>
-        <button
-          id="degree-selector--f"
-          className={`btn-temp btn-temp--f ${unitOfMeasurementActive === 'f' ? 'btn-temp--f--active' : ''}`}
-          onClick={handleUnitOfMeasurementChange}
-        >
-          Fahrenheit
-        </button>
-        <button
-          id="degree-selector--c"
-          className={`btn-temp btn-temp--c ${unitOfMeasurementActive === 'c' ? 'btn-temp--c--active' : ''}`}
-          onClick={handleUnitOfMeasurementChange}
-        >
-          Celsius
-        </button>
-        <button
-          id="degree-selector--k"
-          className={`btn-temp btn-temp--k ${unitOfMeasurementActive === 'k' ? 'btn-temp--k--active' : ''}`}
-          onClick={handleUnitOfMeasurementChange}
-        >
-          Kelvin
-        </button>
+        <div className="form__section-bottom-method">
+          <button
+            id="city"
+            className={`btn ${searchMethod === 'city' ? 'btn--active' : ''}`}
+            onClick={handleSelectionOfSearchMethod}
+          >
+            Get Weather for a City
+          </button>
+          <button
+            id="geoLoc"
+            className={`btn ${searchMethod === 'geoLoc' ? 'btn--active' : ''}`}
+            onClick={handleSelectionOfSearchMethod}
+          >
+            Get Weather for my Location
+          </button>
+        </div>
+        <div className="form__section-bottom-units">
+          <button
+            id="degree-selector--f"
+            className={`btn-temp btn-temp--f ${unitOfMeasurementActive === 'f' ? 'btn-temp--f--active' : ''}`}
+            onClick={handleUnitOfMeasurementChange}
+          >
+            Fahrenheit
+          </button>
+          <button
+            id="degree-selector--c"
+            className={`btn-temp btn-temp--c ${unitOfMeasurementActive === 'c' ? 'btn-temp--c--active' : ''}`}
+            onClick={handleUnitOfMeasurementChange}
+          >
+            Celsius
+          </button>
+          <button
+            id="degree-selector--k"
+            className={`btn-temp btn-temp--k ${unitOfMeasurementActive === 'k' ? 'btn-temp--k--active' : ''}`}
+            onClick={handleUnitOfMeasurementChange}
+          >
+            Kelvin
+          </button>
+        </div>
+        <div className="form__section-bottom-submit">
+          <submit className="btn btn-search" onClick={handleFormSubmit}>
+            <p className="btn-search-text">Search</p>
+            <ion-icon
+              name="search"
+              size="large"
+              className="btn-search-icon"
+            ></ion-icon>
+          </submit>
+        </div>
       </div>
-      <button onClick={logData}>Get Data</button>
     </form>
   );
 }

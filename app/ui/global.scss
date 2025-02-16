@@ -15,8 +15,9 @@ html {
 
 body {
     height: 100%;
-    color: $color-primary;
-    background-color: $background-color--primary;
+    color: $color-text--primary;
+    background-color: $color-dark;
+    font-family: inherit;
 }
 
 .app-container {
@@ -37,10 +38,52 @@ body {
     }
 }
 
+.header {
+    &__container {
+        flex-direction: column;
+        justify-items: center;
+        margin-top: 3rem;
+    }
+    &__icon {
+        justify-self: center;
+        font-size: 8rem;
+    }
+}
+
 .weatherData__section {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1.25rem;
+    margin-top: 2rem;
 }
+
+.btn {
+    background-color: $color-silver;
+    color: $color-dark;
+    border-radius: 10px;
+    border: 1px solid $color-silver;
+    font-size: 1.6rem;
+    padding: 1rem 2rem;
+    min-width: 225px;
+    transition: all 0.15s;
+
+    &:hover {
+        background-color: $color-dark;
+        color: $color-silver;
+    }
+
+    &:focus, &:active {
+        background-color: #202025;
+        color: $color-silver;
+    }
+
+    &--active {
+        background-color: #202025;
+        color: $color-silver;
+        border: 2px solid $color-silver;
+    }
+}
+
+
 

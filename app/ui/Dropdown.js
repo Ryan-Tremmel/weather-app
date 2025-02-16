@@ -12,7 +12,7 @@ export default function Dropdown({
   isFocused,
   setIsFocused,
 }) {
-  // NEEDED FOR HYDRATION BUG WITH REACT-SELECT - CAN BE SAFELY REMOVED ONCE BUG IS FIXED
+  // NEEDED FOR HYDRATION BUG WITH REACT-SELECT (HOWEVER DOESN'T ALWAYS WORK) - CAN BE SAFELY REMOVED ONCE BUG IS FIXED
   // const Select = dynamic(() => import('react-select'), { ssr: false });
 
   const populateSelect = () => {
@@ -23,7 +23,7 @@ export default function Dropdown({
     }));
   };
 
-  // Custom Control component to make it look like an input field
+  // Used to customize and stylize the dropdown
   const customStyles = {
     control: (provided) => ({
       ...provided,
@@ -31,7 +31,7 @@ export default function Dropdown({
       border: 'none',
       boxShadow: 'none',
       padding: '2px 10px',
-      fontSize: '2.5rem',
+      fontSize: '3rem',
       outline: 'none',
       width: 'max-content',
     }),
@@ -56,6 +56,10 @@ export default function Dropdown({
           ? '#cecee3' // Background color when hovered
           : 'transparent',
       color: state.isSelected ? '#3d3d3d' : '#3d3d3d',
+    }),
+    noOptionsMessage: (provided) => ({
+      ...provided,
+      color: '#3d3d3d',
     }),
   };
 
