@@ -262,7 +262,7 @@ export default function Card({
                   backgroundSize: 'cover',
                 }}
               >
-                <h3 className="card__text-main">
+                <h3 className="card__text-color--dark-bold">
                   {weatherData.weather[0].main}
                 </h3>
               </div>
