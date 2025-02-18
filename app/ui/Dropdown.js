@@ -31,7 +31,7 @@ export default function Dropdown({
       border: 'none',
       boxShadow: 'none',
       padding: '2px 10px',
-      fontSize: '3rem',
+      fontSize: '2.5rem',
       outline: 'none',
       width: 'max-content',
     }),

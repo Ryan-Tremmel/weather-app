@@ -10,8 +10,8 @@
 .card {
   perspective: 1000px;
   background: transparent;
-  width: 20rem;
-  height: 22rem;
+  width: 23rem;
+  height: 25rem;
   border-radius: 0.7rem;
 
   .card__inner {
@@ -44,8 +44,20 @@
   &__front {
     background: linear-gradient(to bottom right, #58585e, #292931);
 
-    &__img-div {
-      justify-self: flex-start;
+    &-left {
+      text-align: center;
+      gap: 0.7rem;
+    }
+
+    &-right {
+      display: grid;
+      grid-template-rows: repeat(2, 1fr);
+    }
+
+    &-text-div {
+      justify-self: center;
+      align-self: center;
+      text-align: center;
     }
   }
 
@@ -53,13 +65,87 @@
     background: linear-gradient(to bottom right, #a6a6b7, #666675);
     color: $color-text--dark;
     transform: rotateY(180deg);
+
+    &-left {
+      gap: 1rem;
+      text-align: center;
+    }
+
+    &-right {
+      gap: 1.4rem;
+      text-align: center;
+    }
   }
 
   &__text {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
 
-    &-main {
-      color: #212121;
+    &--smaller {
+      font-size: 1.6rem;
+    }
+
+    &--larger {
+     font-size: 2.2rem;
+    }
+
+    &-date {
+      font-size: 2.8rem;
+      font-weight: 700;
+    }
+
+    &-time {
+      font-size: 2.5rem;
+    }
+
+    &-weather-description {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    &-country {
+      font-size: 2rem;
+    }
+
+    &-color--white {
+      color: #fff;
+    }
+
+    &-color--dark {
+      color: $color-text--dark2;
+      &-bold {
+        color: $color-text--dark2;
+        font-weight: 900;
+      }
+    }
+
+    &-time--night {
+      color: $color-text--primary;
+    }
+  }
+
+  &__label {
+      font-size: 1.8rem;
+
+    &--larger {
+      font-size: 2.3rem;
+      font-weight: 700;
+    }
+  }
+
+  &__link {
+    color: $color-text--dark;
+    text-decoration: none;
+
+    &:visited {
+      color: $color-text--dark;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:active {
+      text-decoration: underline;
     }
   }
 

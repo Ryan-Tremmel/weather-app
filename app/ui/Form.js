@@ -9,7 +9,6 @@ import useGeolocation from '@/app/lib/useGeolocation';
 export default function Form({
   useLocation,
   setFetchedData,
-  data,
   setData,
   unitOfMeasurement,
   setUnitOfMeasurement,
@@ -20,7 +19,7 @@ export default function Form({
   const [country, setCountry] = useState('');
   const [searchMethod, setSearchMethod] = useState('city');
   const [unitOfMeasurementActive, setUnitOfMeasurementActive] = useState(null);
-  const { location, geolocationError } = useGeolocation(useLocation);
+  const { location } = useGeolocation(useLocation);
 
   // Ensures only letters are entered and not numbers
   const handleTextDisplayChange = (e) => {
@@ -69,6 +68,12 @@ export default function Form({
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    setError(null);
+
+    if (!location.lat) {
+      setError('geolocation error');
+      return;
+    }
 
     if (unitOfMeasurement !== 'imperial' && unitOfMeasurement !== 'metric')
       setUnitOfMeasurementActive('k');

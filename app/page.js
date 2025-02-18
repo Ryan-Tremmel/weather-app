@@ -68,7 +68,7 @@ export default function app() {
               </div>
             </>
           )}
-          {error ? <NotFound /> : ''}
+          {error ? <NotFound error={error} /> : ''}
         </section>
       </main>
       <script
