@@ -29,9 +29,6 @@ export default function Form({
 
   // Changes whether the API utilizes city or geolocation to retrieve weather data
   const handleSelectionOfSearchMethod = (e) => {
-    /* What should happen is that when a selection is made, by default the city and country should be showing,
-       but if the user chooses "My Location," the input should shrink and then grab their location and display it as the value
-     */
     e.preventDefault();
     setSearchMethod(e.target.id);
     setCityInputText('');
@@ -75,6 +72,7 @@ export default function Form({
       return;
     }
 
+    // If no unit of measurement is selected, defaults to Kelvin (as is standard with Openweather)
     if (unitOfMeasurement !== 'imperial' && unitOfMeasurement !== 'metric')
       setUnitOfMeasurementActive('k');
 
@@ -99,29 +97,8 @@ export default function Form({
       }));
     }
   };
-
-  // Maps through the countryOptions array with each country being an object with a name and country code, then displays as options
-
-  // const populateSelect = () => {
-  //   // NEED TO ADD FALLBACK IF COUNTRY IS NOT LISTED
-  //   return countryOptions.map((country) => ({
-  //     key: country.code ? country.code : '0',
-  //     value: country.code,
-  //     label: country.name,
-  //   }));
-  // };
-
-  /*const populateSelect = () => {
-    // NEED TO ADD FALLBACK IF COUNTRY IS NOT LISTED
-    return countryOptions.map((country) => (
-      <option key={country.code ? country.code : '0'} value={country.code}>
-        {country.name}
-      </option>
-    ));
-  };*/
-
   return (
-    <form className="form">
+    <form className="form" onSubmit={handleFormSubmit}>
       <div className="form__section-top">
         <label htmlFor={'text-box'} className="form__text-label">
           Enter a city you'd like to see the current weather for or use your own
@@ -136,11 +113,15 @@ export default function Form({
           placeholder="Please enter your desired city"
           onChange={handleTextDisplayChange}
           value={cityInputText}
-          required
           autoComplete="off"
           maxLength="50"
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleFormSubmit(e);
+            }
+          }}
         />
         <Dropdown
           country={country}
@@ -191,14 +172,14 @@ export default function Form({
           </button>
         </div>
         <div className="form__section-bottom-submit">
-          <submit className="btn btn-search" onClick={handleFormSubmit}>
+          <button type="submit" className="btn btn-search">
             <p className="btn-search-text">Search</p>
             <ion-icon
               name="search"
               size="large"
               className="btn-search-icon"
             ></ion-icon>
-          </submit>
+          </button>
         </div>
       </div>
     </form>

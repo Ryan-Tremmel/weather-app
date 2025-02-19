@@ -1,5 +1,6 @@
 import '@/app/ui/styles/Card.scss';
-import React, { useState } from 'react';
+import calcUnits from '@/app/lib/calcUnits';
+import { useState, useEffect } from 'react';
 import { LoadingSpinner } from '@/app/ui/skeletons';
 
 export default function Card({
@@ -7,44 +8,43 @@ export default function Card({
   cardType,
   unitOfMeasurement,
 }) {
-  const [unitState, setUnitState] = useState({
-    tempLabel: undefined,
-    tempValue: undefined,
-    windSpeedLabel: undefined,
-    windSpeedValue: undefined,
+  const [unitsState, setUnitsState] = useState({
+    temperature: {
+      imperialLabel: 'Fahrenheit',
+      imperialValue: undefined,
+      metricLabel: 'Celsius',
+      metricValue: undefined,
+      standardLabel: 'Kelvin',
+      standardValue: undefined,
+    },
+    temperatureFeelsLike: {
+      imperialValue: undefined,
+      metricValue: undefined,
+      standardValue: undefined,
+    },
+    temperatureMin: {
+      imperialValue: undefined,
+      metricValue: undefined,
+      standardValue: undefined,
+    },
+    temperatureMax: {
+      imperialValue: undefined,
+      metricValue: undefined,
+      standardValue: undefined,
+    },
+    windSpeed: {
+      imperialLabel: 'miles/hour',
+      imperialValue: undefined,
+      metricLabel: 'meters/sec',
+      metricValue: undefined,
+    },
   });
 
-  // const calculatedUnits = calcUnits(unitOfMeasurement, weatherData);
+  useEffect(() => {
+    if (weatherData) calcUnits(unitOfMeasurement, weatherData, setUnitsState);
+  }, [weatherData]);
 
   if (weatherData) {
-    /* switch (unitOfMeasurement) {
-       case 'imperial':
-         setUnitState((prevState) => ({
-           ...prevState,
-           tempLabel: 'Fahrenheit',
-           tempValue: calculatedUnits.fahrenheit,
-           windSpeedLabel: 'miles/hour',
-           windSpeedValue: calculatedUnits.windSpeed.imperial,
-         }));
-         break;
-       case 'metric':
-         setUnitState((prevState) => ({
-           ...prevState,
-           tempLabel: 'Celsius',
-           tempValue: calculatedUnits.temperature.celsius,
-           windSpeedLabel: 'meters/sec',
-           windSpeedValue: calculatedUnits.windSpeed.metric,
-         }));
-         break;
-       default:
-         setUnitState((prevState) => ({
-           ...prevState,
-           tempLabel: 'Kelvin',
-           tempValue: units.temperature.kelvin,
-           windSpeedLabel: 'meters/sec',
-           windSpeedValue: units.windSpeed.metric,
-         })); */
-
     switch (cardType) {
       case 'left':
         /***** BACK OF CARD *****/
@@ -73,6 +73,7 @@ export default function Card({
             timeZone: timeZoneString,
           }).format(new Date(timestamp * 1000));
 
+        // Used exclusively to compare times for the left-back card's image
         const formatLocalTime24Hours = (timestamp) =>
           new Intl.DateTimeFormat('en-US', {
             hour: '2-digit',
@@ -96,14 +97,14 @@ export default function Card({
             imageTextColorClass = 'card__text-color--dark';
             break;
           case currentTimeLocal24Hours >= 10 && currentTimeLocal24Hours <= 16:
-            imagePathTimeOfDay = '/images/midday.jpeg';
+            imagePathTimeOfDay = '/images/day2.jpeg';
             imageTextColorClass = 'card__text-color--dark';
             break;
           case currentTimeLocal24Hours >= 17 && currentTimeLocal24Hours <= 20:
             imagePathTimeOfDay = '/images/sunset.jpeg';
             imageTextColorClass = 'card__text-color--white';
             break;
-          case currentTimeLocal24Hours >= 21:
+          case currentTimeLocal24Hours >= 21 || currentTimeLocal24Hours <= 5:
             imagePathTimeOfDay = '/images/night.jpeg';
             imageTextColorClass = 'card__text-time--night';
             break;
@@ -121,29 +122,30 @@ export default function Card({
                   backgroundImage: `url(/images/tempImg.jpeg)`,
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: 'cover',
+                  filter: 'brightness(60%)',
                 }}
               >
-                <p className="card__text--smaller">
-                  {weatherData.main.temp}° {'TEMP'}
+                <p className="card__text--larger">
+                  {unitsState.temperature[`${unitOfMeasurement}Value`]}°{' '}
+                  {unitsState.temperature[`${unitOfMeasurement}Label`]}
                 </p>
                 <p className="card__text--smaller">
-                  Feels like {weatherData.main.feels_like}°
+                  Feels like{' '}
+                  {unitsState.temperatureFeelsLike[`${unitOfMeasurement}Value`]}
+                  °
                 </p>
-                <div>
-                  <p className="card__text--smaller">Highest Temperature</p>
-                  <p className="card__text--smaller">
-                    {weatherData.main.temp_max}°
-                  </p>
-                </div>
-
-                <div>
-                  <p className="card__text--smaller">Lowest Temperature</p>
-                  <p className="card__text--smaller">
-                    {weatherData.main.temp_min}°
-                  </p>
-                </div>
                 <p className="card__text--smaller">
-                  Wind Speed: {weatherData.speed} {'TEMP'}
+                  Highest Temperature:{' '}
+                  {unitsState.temperatureMax[`${unitOfMeasurement}Value`]}°
+                </p>
+                <p className="card__text--smaller">
+                  Lowest Temperature:{' '}
+                  {unitsState.temperatureMin[`${unitOfMeasurement}Value`]}°
+                </p>
+                <p className="card__text--smaller">
+                  Wind Speed:{' '}
+                  {unitsState.windSpeed[`${unitOfMeasurement}Value`]}{' '}
+                  {unitsState.windSpeed[`${unitOfMeasurement}Label`]}
                 </p>
                 <p className="card__text--smaller">
                   Humidity: {weatherData.main.humidity}%
@@ -154,44 +156,13 @@ export default function Card({
                     {weatherData.main.pressure} hPa
                   </p>
                 </div>
-                {/*<div>*/}
-                {/*  <p className="card__label">Temperature</p>*/}
-                {/*  <p className="card__text">*/}
-                {/*    {weatherData.main.temp}° {'TEMP'}*/}
-                {/*  </p>*/}
-                {/*</div>*/}
-                {/*<div>*/}
-                {/*  <p className="card__label">Feels Like</p>*/}
-                {/*  <p className="card__text">{weatherData.main.feels_like}°</p>*/}
-                {/*</div>*/}
-                {/*<div>*/}
-                {/*  <p className="card__label">Highest Temperature</p>*/}
-                {/*  <p className="card__text">{weatherData.main.temp_max}°</p>*/}
-                {/*</div>*/}
-                {/*<div>*/}
-                {/*  <p className="card__label">Lowest Temperature</p>*/}
-                {/*  <p className="card__text">{weatherData.main.temp_min}°</p>*/}
-                {/*</div>*/}
-                {/*<div>*/}
-                {/*  <p className="card__label">Wind Speed</p>*/}
-                {/*  <p className="card__text">*/}
-                {/*    {weatherData.speed} {'TEMP'}*/}
-                {/*  </p>*/}
-                {/*</div>*/}
-                {/*<div>*/}
-                {/*  <p className="card__label">Humidity</p>*/}
-                {/*  <p className="card__text">{weatherData.main.humidity}%</p>*/}
-                {/*</div>*/}
-                {/*<div>*/}
-                {/*  <p className="card__label">Atmospheric Pressure</p>*/}
-                {/*  <p className="card__text">{weatherData.main.pressure} hPa</p>*/}
-                {/*</div>*/}
               </div>
               <div
                 className="card__back card__back-left"
                 style={{
                   backgroundImage: `url(${imagePathTimeOfDay})`,
                   backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'bottom',
                   backgroundSize: 'cover',
                 }}
               >
@@ -228,6 +199,7 @@ export default function Card({
             imagePathWeather = '/images/clear.jpeg';
             break;
           case 'Mist':
+          case 'Haze':
             imagePathWeather = '/images/misty.jpeg';
             break;
           case 'Clouds':
