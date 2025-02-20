@@ -1,18 +1,43 @@
 @import './variables';
+@import './mixins';
 
 .card-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 4rem;
+  gap: 5rem;
+
+  @include respond-laptop-standard {
+    gap: 4rem;
+  }
 }
 
 .card {
   perspective: 1000px;
   background: transparent;
-  width: 23rem;
-  height: 25rem;
+  width: 32rem;
+  height: 35rem;
   border-radius: 0.7rem;
+
+  @include respond-desktop {
+    width: 30rem;
+    height: 35rem;
+  }
+
+  @include respond-laptop-standard {
+    width: 23rem;
+    height: 25rem;
+  }
+
+  @include respond-laptop-small {
+    width: 25rem;
+    height: 30rem;
+  }
+
+  @include respond-tablet-large {
+    width: 25rem;
+    height: 35rem;
+  }
 
   .card__inner {
     position: relative;
@@ -44,16 +69,29 @@
   &__front {
     background: linear-gradient(to bottom right, #58585e, #292931);
 
+    // Temperature Card
     &-left {
       text-align: center;
       gap: 0.7rem;
+
+      @include respond-laptop-small {
+        gap: 1rem;
+      }
     }
 
+    // Flag and Country Card
     &-right {
       display: grid;
       grid-template-rows: repeat(2, 1fr);
     }
 
+    // Flag and Country Card, Flag Section
+    &-img-div {
+      width: 100%;
+      height: 100%;
+    }
+
+    // Flag and Country Card, Country Name Section
     &-text-div {
       justify-self: center;
       align-self: center;
@@ -66,11 +104,13 @@
     color: $color-text--dark;
     transform: rotateY(180deg);
 
+    // Time Card
     &-left {
       gap: 1rem;
       text-align: center;
     }
 
+    // Country Information Card
     &-right {
       gap: 1.4rem;
       text-align: center;
@@ -78,14 +118,38 @@
   }
 
   &__text {
-    font-size: 1.7rem;
+    font-size: 2.2rem;
+
+    @include respond-laptop-standard {
+      font-size: 1.7rem;
+    }
+
+    @include respond-tablet-large {
+      font-size: 1.9rem;
+    }
 
     &--smaller {
-      font-size: 1.65rem;
+      font-size: 2.2rem;
+
+      @include respond-laptop-standard {
+        font-size: 1.65rem;
+      }
+
+      @include respond-tablet-large {
+        font-size: 1.85rem;
+      }
     }
 
     &--larger {
-     font-size: 2.2rem;
+     font-size: 3.2rem;
+
+      @include respond-laptop-standard {
+        font-size: 2.2rem;
+      }
+
+      @include respond-tablet-large {
+        font-size: 3rem;
+      }
     }
 
     &--bold {
@@ -93,21 +157,51 @@
     }
 
     &-date {
-      font-size: 2.8rem;
+      font-size: 3.8rem;
       font-weight: 700;
+
+      @include respond-laptop-standard {
+        font-size: 2.8rem;
+      }
+
+      @include respond-tablet-large {
+        font-size: 3.6rem;
+      }
     }
 
     &-time {
-      font-size: 2.5rem;
+      font-size: 3.5rem;
+
+      @include respond-laptop-standard {
+        font-size: 2.5rem;
+      }
+
+      @include respond-tablet-large {
+        font-size: 3.3rem;
+      }
     }
 
     &-weather-description {
-      font-size: 2rem;
+      font-size: 3rem;
       font-weight: bold;
+      margin-top: 1rem;
+
+      @include respond-laptop-standard {
+        font-size: 2rem;
+        margin-top: 0;
+      }
+
+      @include respond-tablet-large {
+        font-size: 3.6rem;
+      }
     }
 
     &-country {
-      font-size: 2rem;
+      font-size: 2.4rem;
+
+      @include respond-laptop-standard {
+        font-size: 2rem;
+      }
     }
 
     &-color--white {
@@ -116,6 +210,7 @@
 
     &-color--dark {
       color: $color-text--dark2;
+
       &-bold {
         color: $color-text--dark2;
         font-weight: 900;
@@ -128,11 +223,23 @@
   }
 
   &__label {
+      font-size: 2.7rem;
+
+    @include respond-laptop-standard {
       font-size: 1.8rem;
+    }
+
+    @include respond-tablet-large {
+      font-size: 2.5rem;
+    }
 
     &--larger {
-      font-size: 2.3rem;
+      font-size: 3.2rem;
       font-weight: 700;
+
+      @include respond-laptop-standard {
+        font-size: 2.3rem;
+      }
     }
   }
 
@@ -158,28 +265,3 @@
     width: 100%;
   }
 }
-
-
-
-//.card {
-//  perspective: 1000px;
-//  transition: transform 0.6s;
-//  transform-style: preserve-3d;
-//
-//  .card__inner {
-//
-//  }
-//
-//  display: flex;
-//  flex-direction: column;
-//  justify-content: center;
-//  align-items: center;
-//  width: 20rem;
-//  height: 22rem;
-//  background: linear-gradient(to bottom right, #58585e, #292931);
-//  margin: 0 10px 0 10px;
-//  object-fit: cover;
-//  border-radius: 0.7rem;
-//  box-shadow: 0 6px 15px 1.5px rgba(0, 0, 0, 0.363);
-//  cursor: pointer;
-//}

@@ -1,3 +1,4 @@
+// COLORS //
 $color-dark: #2e2e36;
 $color-silver: #cecee3;
 $color-silver--dark: #a6a6b7;
@@ -11,3 +12,14 @@ $color-c: #1a47dc;
 $color-c--active: #1e50f8;
 $color-k: #16a200;
 $color-k--active: #13cb00;
+
+// MEDIA QUERIES //
+$bp-desktop-4k: 256em; // 2560px / 16
+$bp-desktop-2k: 160em; // 2560px / 16
+$bp-desktop: 120em; // 1920px / 16
+$bp-laptop-standard: 90em; // 1440px / 16
+$bp-laptop-small: 66.88em; // 1070px / 16
+
+$bp-tablet-large: 64.12em; // 1026px / 16
+$bp-tablet: 55.31em; // 885px / 16
+$bp-phone: 42.19em; // 675px / 16

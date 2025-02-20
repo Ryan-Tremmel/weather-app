@@ -1,4 +1,5 @@
 @import './styles/variables.scss';
+@import './styles/mixins.scss';
 
 *,
 *::after,
@@ -9,8 +10,29 @@
 
 html {
     box-sizing: border-box;
-    font-size: 62.5%;
+    font-size: 112%;
     height: 100%;
+
+    @include respond-desktop-2k {
+        font-size: 87.5%;
+    }
+
+    @include respond-desktop {
+        font-size: 68.75%;
+    }
+
+    @include respond-laptop-standard {
+        font-size: 62.5%;
+    }
+
+    @include respond-laptop-small {
+        font-size: 56.25%;
+    }
+
+    @include respond-tablet {
+        font-size: 50%;
+    }
+
 }
 
 body {
@@ -20,11 +42,48 @@ body {
     font-family: inherit;
 }
 
+h2 {
+    font-size: 3.5rem;
+
+    @include respond-laptop-standard {
+        font-size: 2.5rem;
+    }
+
+    @include respond-tablet-large {
+        font-size: 2.2rem;
+    }
+}
+
+h3 {
+    font-size: 4rem;
+
+    @include respond-laptop-standard {
+        font-size: 2.5rem;
+    }
+
+    @include respond-tablet-large {
+        font-size: 3.8rem;
+    }
+}
+
 .app-container {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     font-size: 2rem;
+    padding: 10rem;
+
+    @include respond-laptop-standard {
+        padding: 0;
+    }
+
+    @include respond-tablet-large {
+        padding: 5rem;
+    }
+
+    @include respond-tablet {
+        padding: 1rem;
+    }
 }
 
 .disabled {
@@ -42,7 +101,15 @@ body {
     &__container {
         flex-direction: column;
         justify-items: center;
-        margin-top: 3rem;
+
+        @include respond-laptop-standard {
+            margin-top: 3rem;
+        }
+
+        @include respond-tablet {
+            margin-top: 8rem;
+        }
+
     }
     &__icon {
         justify-self: center;
@@ -54,8 +121,20 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.25rem;
-    margin-top: 1rem;
+    gap: 2.5rem;
+    margin-top: 3.5rem;
+
+    @include respond-laptop-standard {
+        margin-top: 2.5rem;
+    }
+
+    @include respond-tablet-large {
+        margin-top: 12rem;
+    }
+
+    @include respond-tablet {
+        margin-top: 13rem;
+    }
 }
 
 .btn {
@@ -64,10 +143,30 @@ body {
     border-radius: 10px;
     border: 1px solid $color-silver;
     font-size: 1.6rem;
-    padding: 1rem 2rem;
-    //padding: 0.5rem 1rem;
-    min-width: 225px;
+    padding: 2rem 4rem;
+    min-width: 300px;
     transition: all 0.15s;
+
+    @include respond-desktop-2k {
+        padding: 1rem 2rem;
+        min-width: 225px;
+    }
+
+    @include respond-laptop-small {
+        padding: 1rem;
+        min-width: max-content;
+    }
+
+    @include respond-tablet-large {
+        font-size: 2rem;
+        min-width: 260px;
+    }
+
+    @include respond-tablet {
+        font-size: 1.8rem;
+        padding: 2rem 0.8rem;
+        min-width: 210px;
+    }
 
     &:hover {
         background-color: $color-dark;

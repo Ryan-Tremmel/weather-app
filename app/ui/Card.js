@@ -122,7 +122,7 @@ export default function Card({
                   backgroundImage: `url(/images/tempImg.jpeg)`,
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: 'cover',
-                  filter: 'brightness(60%)',
+                  filter: 'brightness(80%)',
                 }}
               >
                 <p className="card__text--larger">
@@ -222,7 +222,8 @@ export default function Card({
           .map((word) => word[0].toUpperCase() + word.slice(1))
           .join(' ');
         const icon = weatherData.weather[0].icon;
-        const iconURL = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+        const scale = window.innerWidth <= 1440 ? 2 : 4;
+        const iconURL = `https://openweathermap.org/img/wn/${icon}@${scale}x.png`;
         return (
           <div id="cardMiddle" className="card">
             <div className="card__inner">
