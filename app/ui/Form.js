@@ -3,6 +3,7 @@
 import '@/app/ui/styles/Form.scss';
 import { useState } from 'react';
 import Dropdown from '@/app/ui/Dropdown';
+import Toggle from '@/app/ui/Toggle';
 import { fetchWeatherData } from '@/app/pages/api/data';
 import useGeolocation from '@/app/lib/useGeolocation';
 
@@ -13,12 +14,13 @@ export default function Form({
   unitOfMeasurement,
   setUnitOfMeasurement,
   setError,
+  screenWidth,
 }) {
   const [cityInputText, setCityInputText] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [country, setCountry] = useState('');
   const [searchMethod, setSearchMethod] = useState('city');
-  const [unitOfMeasurementActive, setUnitOfMeasurementActive] = useState(null);
+  const [unitOfMeasurementActive, setUnitOfMeasurementActive] = useState(null); // FOR USE WITH UNIT OF MEASUREMENT BUTTONS
   const { location } = useGeolocation(useLocation);
 
   // Ensures only letters are entered and not numbers
@@ -36,6 +38,12 @@ export default function Form({
   };
 
   // Selects the unit of measurement based on what the user selects
+  const handleUnitOfMeasurementChange = () => {
+    setUnitOfMeasurement((prevUnit) =>
+      prevUnit === 'imperial' ? 'metric' : 'imperial',
+    );
+  };
+  /* FOR USE WITH UNIT OF MEASUREMENT BUTTONS
   const handleUnitOfMeasurementChange = (e) => {
     e.preventDefault();
     setUnitOfMeasurementActive(null);
@@ -52,7 +60,7 @@ export default function Form({
         setUnitOfMeasurement('standard');
         setUnitOfMeasurementActive('k');
     }
-  };
+  }; */
 
   const formData = {
     setFetchedData,
@@ -72,9 +80,10 @@ export default function Form({
       return;
     }
 
+    /* FOR USE WITH UNIT OF MEASUREMENT BUTTONS
     // If no unit of measurement is selected, defaults to Kelvin (as is standard with Openweather)
     if (unitOfMeasurement !== 'imperial' && unitOfMeasurement !== 'metric')
-      setUnitOfMeasurementActive('k');
+      setUnitOfMeasurementActive('k'); */
 
     const { weatherData, countryData, error } =
       await fetchWeatherData(formData);
@@ -129,6 +138,7 @@ export default function Form({
           searchMethod={searchMethod}
           isFocused={isFocused}
           setIsFocused={setIsFocused}
+          screenWidth={screenWidth}
         />
       </div>
       <div className="form__section-bottom">
@@ -149,27 +159,32 @@ export default function Form({
           </button>
         </div>
         <div className="form__section-bottom-units">
-          <button
-            id="degree-selector--f"
-            className={`btn-temp btn-temp--f ${unitOfMeasurementActive === 'f' ? 'btn-temp--f--active' : ''}`}
-            onClick={handleUnitOfMeasurementChange}
-          >
-            Fahrenheit
-          </button>
-          <button
-            id="degree-selector--c"
-            className={`btn-temp btn-temp--c ${unitOfMeasurementActive === 'c' ? 'btn-temp--c--active' : ''}`}
-            onClick={handleUnitOfMeasurementChange}
-          >
-            Celsius
-          </button>
-          <button
-            id="degree-selector--k"
-            className={`btn-temp btn-temp--k ${unitOfMeasurementActive === 'k' ? 'btn-temp--k--active' : ''}`}
-            onClick={handleUnitOfMeasurementChange}
-          >
-            Kelvin
-          </button>
+          <Toggle
+            unitOfMeasurement={unitOfMeasurement}
+            handleUnitOfMeasurementChange={handleUnitOfMeasurementChange}
+          />
+          {/* ALLOWS TO CHANGE UNIT OF MEASUREMENT WITH BUTTONS INSTEAD OF TOGGLE */}
+          {/*<button*/}
+          {/*  id="degree-selector--f"*/}
+          {/*  className={`btn-temp btn-temp--f ${unitOfMeasurementActive === 'f' ? 'btn-temp--f--active' : ''}`}*/}
+          {/*  onClick={handleUnitOfMeasurementChange}*/}
+          {/*>*/}
+          {/*  Fahrenheit*/}
+          {/*</button>*/}
+          {/*<button*/}
+          {/*  id="degree-selector--c"*/}
+          {/*  className={`btn-temp btn-temp--c ${unitOfMeasurementActive === 'c' ? 'btn-temp--c--active' : ''}`}*/}
+          {/*  onClick={handleUnitOfMeasurementChange}*/}
+          {/*>*/}
+          {/*  Celsius*/}
+          {/*</button>*/}
+          {/*<button*/}
+          {/*  id="degree-selector--k"*/}
+          {/*  className={`btn-temp btn-temp--k ${unitOfMeasurementActive === 'k' ? 'btn-temp--k--active' : ''}`}*/}
+          {/*  onClick={handleUnitOfMeasurementChange}*/}
+          {/*>*/}
+          {/*  Kelvin*/}
+          {/*</button>*/}
         </div>
         <div className="form__section-bottom-submit">
           <button type="submit" className="btn btn-search">

@@ -113,7 +113,7 @@ export default function calcUnits(unit, weatherData, setUnitsState) {
         windSpeed: {
           ...prevState.windSpeed,
           imperialValue: 0,
-          metric: 0,
+          metricValue: 0,
         },
       }));
       return;

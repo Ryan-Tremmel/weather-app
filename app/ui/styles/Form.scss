@@ -15,9 +15,9 @@
     margin-top: 5rem;
   }
 
-  //@include respond-tablet-large {
-  //  grid-template-columns: repeat(3, 1fr);
-  //}
+  @include respond-phone {
+    margin-top: 0;
+  }
 
   &__section-top {
     position: relative;
@@ -41,12 +41,26 @@
     @include respond-tablet-large {
       min-width: 90%;
     }
+
+    @include respond-phone {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      min-width: fit-content;
+    }
   }
 
   &__text-label {
     position: absolute;
     top: -2.5rem;
     left: 2rem;
+
+    @include respond-phone {
+      top: 0;
+      left: 0;
+      position: relative;
+      font-size: 1.4rem;
+    }
   }
 
   &__text-input {
@@ -61,6 +75,10 @@
     font-size: 2.5rem;
     outline: none;
     transition: 0.2s;
+
+    @include respond-phone {
+      width: 80%;
+    }
   }
 
   &__select {
@@ -74,6 +92,64 @@
       top: 5%;
     }
 
+    @include respond-phone {
+      position: relative;
+    }
+  }
+
+  &__toggle {
+    display: flex;
+    align-items: center;
+
+    &-label-fahrenheit, &-label-celsius {
+      font-size: 2.5rem;
+
+      @include respond-laptop-standard  {
+        font-size: 2rem;
+      }
+    }
+
+    &-switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+      background-color: $color-f;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin: 0 10px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 14px;
+        height: 14px;
+        background-color: white;
+        border-radius: 50%;
+        transition: transform 0.3s;
+      }
+    }
+    input[type='checkbox'] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+
+      &:checked + .form__toggle-switch {
+        background-color: $color-c;
+
+        &::before {
+          transform: translateX(20px);
+        }
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
   }
 
   &__input--focused {
@@ -84,27 +160,6 @@
     display: flex;
     gap: 5rem;
     max-height: 60px;
-
-    //@include respond-tablet-large {
-    //  display: grid;
-    //  grid-template-columns: repeat(4, 1fr);
-    //  grid-template-rows: repeat(2, 1fr);
-    //  align-items: center;
-    //  &-method, &-submit {
-    //    grid-row: 1;
-    //  }
-    //  &-method {
-    //    grid-column: 1 / 4;
-    //  }
-    //  &-units {
-    //    grid-column: 2 / 4;
-    //    grid-row: 2;
-    //    justify-content: center;
-    //  }
-    //  &-submit {
-    //    grid-column: 4;
-    //  }
-    //}
 
     @include respond-tablet-large {
       display: grid;
@@ -130,8 +185,41 @@
         grid-column: 1 / -1;
         grid-row: 2;
         justify-self: center;
+
+      //  For use with toggle
+        margin-right: 30px;
       }
     }
+
+    @include respond-phone {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 6rem;
+
+      &-method {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    //@include respond-phone {
+    //  grid-template-columns: repeat(3, 1fr);
+    //
+    //  &-method {
+    //    grid-row: 1;
+    //  }
+    //
+    //  &-units {
+    //    grid-row: 2;
+    //  }
+    //
+    //  &-submit {
+    //    grid-row: 3;
+    //  }
+    //}
 
     &-method, &-units, &-submit {
       display: flex;
@@ -161,6 +249,10 @@
       font-size: 1.8rem;
       padding: 2rem 0.8rem;
       min-width: 210px;
+    }
+
+    @include respond-phone {
+      padding: 2rem 1rem;
     }
 
     &-text {

@@ -1,26 +1,24 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import useScreenWidth from '@/app/lib/useScreenWidth';
 import GeolocationPopup from '@/app/ui/GeolocationPopup';
 import NotFound from '@/app/ui/NotFound';
 import Form from '@/app/ui/Form';
 import Card from '@/app/ui/Card';
+import Copyright from '@/app/ui/Copyright';
 
 export default function app() {
   const [isPopupOpen, setIsPopupOpen] = useState(true);
   const [useLocation, setUseLocation] = useState(false);
   const [fetchedData, setFetchedData] = useState(false);
-  const [statusMessage, setStatusMessage] = useState(
-    'Getting current weather...',
-  );
   const [error, setError] = useState(null);
   const [data, setData] = useState({ weatherData: null, countryData: null });
-  const [unitOfMeasurement, setUnitOfMeasurement] = useState('standard');
-
-  console.log(data);
+  const [unitOfMeasurement, setUnitOfMeasurement] = useState('imperial');
+  const { screenWidth, elementRef } = useScreenWidth();
 
   return (
-    <div className="app-container">
+    <div className="app-container" ref={elementRef}>
       <GeolocationPopup
         setIsPopupOpen={setIsPopupOpen}
         setUseLocation={setUseLocation}
@@ -38,6 +36,7 @@ export default function app() {
           unitOfMeasurement={unitOfMeasurement}
           setUnitOfMeasurement={setUnitOfMeasurement}
           setError={setError}
+          screenWidth={screenWidth}
         />
         <section className="weatherData__section">
           {!fetchedData ? (
@@ -54,16 +53,19 @@ export default function app() {
                   data={data}
                   unitOfMeasurement={unitOfMeasurement}
                   cardType={'left'}
+                  screenWidth={screenWidth}
                 />
                 <Card
                   data={data}
                   unitOfMeasurement={unitOfMeasurement}
                   cardType={'middle'}
+                  screenWidth={screenWidth}
                 />
                 <Card
                   data={data}
                   unitOfMeasurement={unitOfMeasurement}
                   cardType={'right'}
+                  screenWidth={screenWidth}
                 />
               </div>
             </>
@@ -71,6 +73,9 @@ export default function app() {
           {error ? <NotFound error={error} /> : ''}
         </section>
       </main>
+      <footer className="footer">
+        <Copyright />
+      </footer>
       <script
         type="module"
         src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"

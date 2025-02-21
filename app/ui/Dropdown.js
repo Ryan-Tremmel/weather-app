@@ -11,6 +11,7 @@ export default function Dropdown({
   searchMethod,
   isFocused,
   setIsFocused,
+  screenWidth,
 }) {
   // NEEDED FOR HYDRATION BUG WITH REACT-SELECT (HOWEVER DOESN'T ALWAYS WORK) - CAN BE SAFELY REMOVED ONCE BUG IS FIXED
   // const Select = dynamic(() => import('react-select'), { ssr: false });
@@ -23,15 +24,24 @@ export default function Dropdown({
     }));
   };
 
+  console.log(screenWidth);
+
+  // Dynamically updates the dropdown UI for phones
+  const backgroundColorVar = screenWidth > 485 ? 'transparent' : '#43434a';
+  const borderVar = screenWidth > 485 ? 'none' : '0.35px solid #97979b';
+  const fontSizeVar = screenWidth > 485 ? '2.5rem' : '1.8rem';
+  const paddingVar = screenWidth > 485 ? '2px 10px' : '1px 10px';
+
   // Used to customize and stylize the dropdown
   const customStyles = {
     control: (provided) => ({
       ...provided,
-      backgroundColor: 'transparent',
-      border: 'none',
+      backgroundColor: backgroundColorVar,
+      border: borderVar,
+      borderRadius: '100px',
       boxShadow: 'none',
-      padding: '2px 10px',
-      fontSize: '2.5rem',
+      fontSize: fontSizeVar,
+      padding: paddingVar,
       outline: 'none',
       width: 'max-content',
     }),

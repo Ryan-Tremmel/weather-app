@@ -7,7 +7,9 @@ export default function Card({
   data: { weatherData, countryData },
   cardType,
   unitOfMeasurement,
+  screenWidth,
 }) {
+  // Based on the unit of measurement is selected, it will display the correct temperature and label, calculated using calcUnits
   const [unitsState, setUnitsState] = useState({
     temperature: {
       imperialLabel: 'Fahrenheit',
@@ -40,6 +42,7 @@ export default function Card({
     },
   });
 
+  // Ensures calculations aren't rerun on ever re-render and ONLY when new weatherData is present
   useEffect(() => {
     if (weatherData) calcUnits(unitOfMeasurement, weatherData, setUnitsState);
   }, [weatherData]);
@@ -97,7 +100,7 @@ export default function Card({
             imageTextColorClass = 'card__text-color--dark';
             break;
           case currentTimeLocal24Hours >= 10 && currentTimeLocal24Hours <= 16:
-            imagePathTimeOfDay = '/images/day2.jpeg';
+            imagePathTimeOfDay = '/images/day.jpeg';
             imageTextColorClass = 'card__text-color--dark';
             break;
           case currentTimeLocal24Hours >= 17 && currentTimeLocal24Hours <= 20:
@@ -222,7 +225,7 @@ export default function Card({
           .map((word) => word[0].toUpperCase() + word.slice(1))
           .join(' ');
         const icon = weatherData.weather[0].icon;
-        const scale = window.innerWidth <= 1440 ? 2 : 4;
+        const scale = screenWidth <= 1440 ? '2' : '4';
         const iconURL = `https://openweathermap.org/img/wn/${icon}@${scale}x.png`;
         return (
           <div id="cardMiddle" className="card">
@@ -304,69 +307,5 @@ export default function Card({
           </div>
         );
     }
-
-    // switch (cardType) {
-    //   case 'left':
-    //     return (
-    //       <div id="cardLeft" className="card">
-    //         <div className="card__inner">
-    //           <div className="card__front">
-    //             <p className="card__text">
-    //               {weatherData.main.temp}° {unit.temp}
-    //             </p>
-    //             <p className="card__text">
-    //               Feels like {weatherData.main.feels_like}°
-    //             </p>
-    //           </div>
-    //           <div className="card__back">
-    //             <p className="card__text">
-    //               Highest Temperature: {weatherData.main.temp_max}°
-    //             </p>
-    //             <p className="card__text">
-    //               Lowest Temperature: {weatherData.main.temp_min}°
-    //             </p>
-    //             <p className="card__text">
-    //               Humidity: {weatherData.main.humidity}%
-    //             </p>
-    //             <p className="card__text">
-    //               Atmospheric Pressure: {weatherData.main.pressure} hPa
-    //             </p>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     );
-    //   case 'middle':
-    //     const weatherDesc = weatherData.weather[0].description
-    //       .split(' ')
-    //       .map((word) => word[0].toUpperCase() + word.slice(1))
-    //       .join(' ');
-    //     const icon = weatherData.weather[0].icon;
-    //     const iconURL = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-    //     return (
-    //       <div id="cardMiddle" className="card">
-    //         <div className="card__inner">
-    //           <div className="card__front">
-    //             <p className="card__text">{weatherData.weather[0].main}</p>
-    //           </div>
-    //           <div className="card__back">
-    //             <img src={iconURL} alt={weatherDesc} />
-    //             <p className="card__text">{weatherDesc}</p>
-    //             <p className="card__text">
-    //               Wind Speed: {weatherData.wind.speed} {unit.speed}
-    //             </p>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     );
-    //   case 'right':
-    //     return (
-    //       <div id="cardRight" className="card">
-    //         <div className="card__inner">
-    //           <div className="card__front"></div>
-    //           <div className="card__back"></div>
-    //         </div>
-    //       </div>
-    //     );
-    // }
   } else return <LoadingSpinner />;
 }
