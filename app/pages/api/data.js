@@ -21,7 +21,7 @@ export const fetchWeatherData = async ({
     setFetchedData(true);
 
     // OPENWEATHER API CALL
-    const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY; // CHANGE THIS TO NON-PUBLIC IN PRODUCTION
+    const API_KEY = process.env.OPENWEATHER_API_KEY; // CHANGE THIS TO NON-PUBLIC IN PRODUCTION - NEXT_PUBLIC_ IN DEV
     const url =
       searchMethod === 'city'
         ? `https://api.openweathermap.org/data/2.5/weather?q=${city},${country.value}&units=${unitOfMeasurement}&appid=${API_KEY}`
