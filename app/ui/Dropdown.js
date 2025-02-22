@@ -24,8 +24,6 @@ export default function Dropdown({
     }));
   };
 
-  console.log(screenWidth);
-
   // Dynamically updates the dropdown UI for phones
   const backgroundColorVar = screenWidth > 485 ? 'transparent' : '#43434a';
   const borderVar = screenWidth > 485 ? 'none' : '0.35px solid #97979b';
