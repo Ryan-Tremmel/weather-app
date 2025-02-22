@@ -4,7 +4,7 @@ import '@/app/ui/styles/Form.scss';
 import { useState } from 'react';
 import Dropdown from '@/app/ui/Dropdown';
 import Toggle from '@/app/ui/Toggle';
-import { fetchWeatherData } from '@/app/pages/api/data';
+import { fetchWeatherData } from '@/app/api/data';
 import useGeolocation from '@/app/lib/useGeolocation';
 
 export default function Form({
