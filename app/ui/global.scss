@@ -107,7 +107,7 @@ h3 {
 .header {
     &__container {
         flex-direction: column;
-        justify-items: center;
+        text-align: center;
 
         @include respond-laptop-standard {
             margin-top: 3rem;
