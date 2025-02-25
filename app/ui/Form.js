@@ -134,6 +134,7 @@ export default function Form({
         weatherData: weatherData,
         countryData: countryData[0],
       }));
+      setCityInputText(weatherData.name);
     }
   };
   return (
@@ -160,7 +161,11 @@ export default function Form({
                 value={cityInputText}
                 maxLength="50"
                 className="form__text-input"
-                placeholder="Atlanta, GA"
+                placeholder={
+                  searchMethod === 'city'
+                    ? 'Atlanta, GA'
+                    : 'Using your location'
+                }
                 onChange={handleTextDisplayChange}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
