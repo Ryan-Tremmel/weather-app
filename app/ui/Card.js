@@ -1,4 +1,13 @@
 import '@/app/ui/styles/Card.scss';
+import { TbTemperatureSun } from 'react-icons/tb';
+import { TbTemperatureSnow } from 'react-icons/tb';
+import { FaTemperatureArrowUp } from 'react-icons/fa6';
+import { FaTemperatureArrowDown } from 'react-icons/fa6';
+import { FaWind } from 'react-icons/fa6';
+import { FaDroplet } from 'react-icons/fa6';
+import { MdPeopleAlt } from 'react-icons/md';
+import { PiMoneyWavyFill } from 'react-icons/pi';
+import { PiUserSoundFill } from 'react-icons/pi';
 import calcUnits from '@/app/lib/calcUnits';
 import { useState, useEffect } from 'react';
 import { LoadingSpinner } from '@/app/ui/skeletons';
@@ -34,6 +43,7 @@ export default function Card({
       metricValue: undefined,
       standardValue: undefined,
     },
+    temperatureIsFreezing: undefined,
     windSpeed: {
       imperialLabel: 'miles/hour',
       imperialValue: undefined,
@@ -119,45 +129,53 @@ export default function Card({
         return (
           <div id="cardLeft" className="card">
             <div className="card__inner">
-              <div
-                className="card__front card__front-left card__text-color--dark-bold"
-                style={{
-                  backgroundImage: `url(/images/tempImg.jpeg)`,
-                  backgroundRepeat: 'no-repeat',
-                  backgroundSize: 'cover',
-                  filter: 'brightness(80%)',
-                }}
-              >
+              <div className="card__front card__front-left color-text--primary">
                 <p className="card__text--larger">
                   {unitsState.temperature[`${unitOfMeasurement}Value`]}°{' '}
                   {unitsState.temperature[`${unitOfMeasurement}Label`]}
                 </p>
-                <p className="card__text--smaller">
-                  Feels like{' '}
-                  {unitsState.temperatureFeelsLike[`${unitOfMeasurement}Value`]}
-                  °
-                </p>
-                <p className="card__text--smaller">
-                  Highest Temperature:{' '}
-                  {unitsState.temperatureMax[`${unitOfMeasurement}Value`]}°
-                </p>
-                <p className="card__text--smaller">
-                  Lowest Temperature:{' '}
-                  {unitsState.temperatureMin[`${unitOfMeasurement}Value`]}°
-                </p>
-                <p className="card__text--smaller">
-                  Wind Speed:{' '}
-                  {unitsState.windSpeed[`${unitOfMeasurement}Value`]}{' '}
-                  {unitsState.windSpeed[`${unitOfMeasurement}Label`]}
-                </p>
-                <p className="card__text--smaller">
-                  Humidity: {weatherData.main.humidity}%
-                </p>
-                <div>
-                  <p className="card__text--smaller">Atmospheric Pressure</p>
-                  <p className="card__text--smaller">
-                    {weatherData.main.pressure} hPa
-                  </p>
+                <div className="card__front-left-group-div">
+                  <div className="card__front-left-div">
+                    {unitsState.temperatureIsFreezing ? (
+                      <TbTemperatureSnow className="card__icon" />
+                    ) : (
+                      <TbTemperatureSun className="card__icon" />
+                    )}
+                    <p className="card__text">
+                      Feels like{' '}
+                      {
+                        unitsState.temperatureFeelsLike[
+                          `${unitOfMeasurement}Value`
+                        ]
+                      }
+                      °
+                    </p>
+                  </div>
+                  <div className="card__front-left-div">
+                    <FaTemperatureArrowUp className="card__icon" />
+                    <p className="card__text">
+                      {unitsState.temperatureMax[`${unitOfMeasurement}Value`]}°
+                    </p>
+                  </div>
+                  <div className="card__front-left-div">
+                    <FaTemperatureArrowDown className="card__icon" />
+                    <p className="card__text">
+                      {unitsState.temperatureMin[`${unitOfMeasurement}Value`]}°
+                    </p>
+                  </div>
+                  <div className="card__front-left-div">
+                    <FaWind className="card__icon" />
+                    <p className="card__text">
+                      {unitsState.windSpeed[`${unitOfMeasurement}Value`]}{' '}
+                      {unitsState.windSpeed[`${unitOfMeasurement}Label`]}
+                    </p>
+                  </div>
+                  <div className="card__front-left-div">
+                    <FaDroplet className="card__icon" />
+                    <p className="card__text">
+                      {weatherData.main.humidity}% humidity
+                    </p>
+                  </div>
                 </div>
               </div>
               <div
@@ -278,20 +296,20 @@ export default function Card({
               </div>
               <div className="card__back card__back-right">
                 <div>
-                  <p className="card__label">Population</p>
+                  <MdPeopleAlt className="card__label" />
                   <p className="card__text">
                     {countryData.population.toLocaleString()}
                   </p>
                 </div>
                 <div>
-                  <p className="card__label">Currency</p>
+                  <PiMoneyWavyFill className="card__label" />
                   <p className="card__text">
                     {countryData.currencies[currencyCode].name} (
                     {countryData.currencies[currencyCode].symbol})
                   </p>
                 </div>
                 <div>
-                  <p className="card__label">Languages Spoken</p>
+                  <PiUserSoundFill className="card__label" />
                   <p className="card__text">{languages}</p>
                 </div>
                 <a

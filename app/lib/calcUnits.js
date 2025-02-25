@@ -40,6 +40,7 @@ export default function calcUnits(unit, weatherData, setUnitsState) {
               1,
             ),
           },
+          temperatureIsFreezing: dataTempValue <= 32,
         }));
         break;
       case 'metric':
@@ -66,6 +67,7 @@ export default function calcUnits(unit, weatherData, setUnitsState) {
             metricValue: dataTempMaxValue.toFixed(1),
             standardValue: (dataTempMaxValue + 273.15).toFixed(1),
           },
+          temperatureIsFreezing: dataTempValue <= 0,
         }));
         break;
       case 'standard':
@@ -99,6 +101,7 @@ export default function calcUnits(unit, weatherData, setUnitsState) {
             metricValue: (dataTempMaxValue - 273.15).toFixed(1),
             standardValue: dataTempMaxValue.toFixed(1),
           },
+          temperatureIsFreezing: dataTempValue <= 273.15,
         }));
         break;
     }

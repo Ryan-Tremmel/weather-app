@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import useScreenWidth from '@/app/lib/useScreenWidth';
 import GeolocationPopup from '@/app/ui/GeolocationPopup';
+import { TiWeatherPartlySunny } from 'react-icons/ti';
 import NotFound from '@/app/ui/NotFound';
 import Form from '@/app/ui/Form';
 import Card from '@/app/ui/Card';
@@ -26,7 +27,7 @@ export default function app() {
       <main className={isPopupOpen ? 'disabled' : ''}>
         <div className="header__container">
           <h1 className="header__text">Weather App</h1>
-          <ion-icon name="rainy-outline" className="header__icon"></ion-icon>
+          <TiWeatherPartlySunny className="header__icon" />
         </div>
         <Form
           useLocation={useLocation}
@@ -76,14 +77,6 @@ export default function app() {
       <footer className="footer">
         <Copyright />
       </footer>
-      <script
-        type="module"
-        src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-      ></script>
-      <script
-        noModule
-        src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-      ></script>
     </div>
   );
 }

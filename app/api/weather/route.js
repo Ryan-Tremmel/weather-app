@@ -4,14 +4,17 @@ export async function POST(req) {
   try {
     const {
       searchMethod,
-      cityInputText,
+      city,
       country,
+      isLoaded,
       unitOfMeasurement,
       location,
     } = await req.json();
 
-    // Eliminates extra space in city (las    vegas to las vegas)
-    const city = eliminateSpace(cityInputText);
+    // Eliminates extra space in city (las    vegas to las vegas) when using fallback input box
+    if (!isLoaded) eliminateSpace(city);
+
+    console.log(city, country);
 
     // OPENWEATHER API CALL
     const API_KEY = process.env.OPENWEATHER_API_KEY;

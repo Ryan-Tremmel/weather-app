@@ -1,102 +1,122 @@
 @import './variables';
 @import './mixins';
 
+/* Change the background color of the Google dropdown */
+.pac-container {
+  background: #d7d7ec;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 /* Form Elements */
 .form {
-  margin-top: 8rem;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(2, 1fr);
-  justify-items: center;
+  margin-top: 6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  row-gap: 2rem;
-
-  @include respond-laptop-standard {
-    margin-top: 5rem;
-  }
+  gap: 1rem;
 
   @include respond-phone {
-    margin-top: 0;
+    margin-top: 3rem;
   }
 
-  &__section-top {
-    position: relative;
+  &__container {
     display: flex;
-    justify-content: center;
-    align-items: flex-end; /* Aligns everything to the bottom */
-    min-width: 60%;
+    align-items: center;
+    background-color: rgba(#43434a, 0.8);
+    color: $color-text--primary;
+    border: 0.35px solid $color-text--primary;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    min-width: 65%;
+    font-size: 2.5rem;
+    outline: none;
 
-    @include respond-desktop {
+    @include respond-desktop-2k {
       min-width: 85%;
-    }
-
-    @include respond-laptop-standard {
-      min-width: 75%;
-    }
-
-    @include respond-laptop-small {
-      min-width: 85%;
-    }
-
-    @include respond-tablet-large {
-      min-width: 90%;
-    }
-
-    @include respond-phone {
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-      min-width: fit-content;
-    }
-  }
-
-  &__text-label {
-    position: absolute;
-    top: -2.5rem;
-    left: 2rem;
-
-    @include respond-phone {
-      top: 0;
-      left: 0;
-      position: relative;
-      font-size: 1.4rem;
     }
   }
 
   &__text-input {
-    //background: linear-gradient(to right, #292931, #58585e, #292931);
-    background-color: rgba(#43434a, 0.8);
+    background-color: transparent;
+    border: none;
+    padding: 1rem 2rem;
     color: $color-text--primary;
-    border: 0.35px solid $color-text--primary;
-    border-radius: 100px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-    padding: 1.2rem 4rem;
-    width: 100%;
     font-size: 2.5rem;
-    outline: none;
-    transition: 0.2s;
-
-    @include respond-phone {
-      width: 80%;
-    }
-  }
-
-  &__select {
-    position: absolute;
-    right: 1%;
-    top: 12%;
-    z-index: 10;
-    transition: 0.2s;
+    width: 100%;
 
     @include respond-tablet-large {
-      top: 5%;
+      font-size: 3rem;
     }
 
     @include respond-phone {
-      position: relative;
+      font-size: 2.5rem;
+    }
+
+    &::placeholder {
+      font-size: 2.5rem;
+    }
+
+    &-wrapper {
+      width: 100%;
     }
   }
 
+  &__label {
+    align-self: flex-start;
+    margin-left: 35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    @include respond-desktop-2k {
+      margin-left: 15rem;
+    }
+
+    @include respond-tablet-large {
+      margin-left: 12rem;
+    }
+
+    @include respond-phone {
+      margin-left: 5rem;
+    }
+
+    &-icon {
+      font-size: 2.2rem;
+    }
+
+    &-text {
+      font-size: 1.8rem;
+    }
+  }
+
+  &__geolocation {
+    background-color: transparent;
+    border: none;
+
+    &-icon {
+      color: $color-text--primary;
+      margin-right: 2rem;
+      width: 4rem;
+      height: 4rem;
+
+      &:hover {
+        color: $color-silver;
+      }
+
+      &--active {
+        color: $color-silver;
+      }
+    }
+  }
+
+  // Country Dropdown Countries
+  &__select-countries {
+    z-index: 10;
+  }
+
+  // Unit of Measurement Toggle Switch
   &__toggle {
     display: flex;
     align-items: center;
@@ -154,192 +174,38 @@
 
   &__input--focused {
   transform: scale(105%);
-  }
 
-  &__section-bottom {
-    display: flex;
-    gap: 5rem;
-    max-height: 60px;
-
-    @include respond-tablet-large {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(2, 1fr);
-      align-items: center;
-      column-gap: 1rem;
-      row-gap: 2rem;
-
-      &-method, &-submit {
-        grid-row: 1;
-      }
-
-      &-method {
-        grid-column: 2 / 3;
-      }
-
-      &-submit {
-        grid-column: 3 / 4;
-      }
-
-      &-units {
-        grid-column: 1 / -1;
-        grid-row: 2;
-        justify-self: center;
-
-      //  For use with toggle
-        margin-right: 30px;
-      }
-    }
-
-    @include respond-phone {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem;
-      margin-top: 6rem;
-
-      &-method {
-        display: flex;
-        flex-direction: column;
-      }
-    }
-
-    //@include respond-phone {
-    //  grid-template-columns: repeat(3, 1fr);
-    //
-    //  &-method {
-    //    grid-row: 1;
-    //  }
-    //
-    //  &-units {
-    //    grid-row: 2;
-    //  }
-    //
-    //  &-submit {
-    //    grid-row: 3;
-    //  }
-    //}
-
-    &-method, &-units, &-submit {
-      display: flex;
-      gap: 1rem;
+    &-search {
+      transform: translateX(50%);
     }
   }
-}
 
-/* Button Elements in Form */
-.btn {
-  &-search {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    min-width: 200px;
-
-    @include respond-laptop-standard {
-      min-width: fit-content;
-    }
-
-    @include respond-tablet-large {
-      min-width: 260px;
-    }
-
-    @include respond-tablet {
-      font-size: 1.8rem;
-      padding: 2rem 0.8rem;
-      min-width: 210px;
-    }
-
-    @include respond-phone {
-      padding: 2rem 1rem;
-    }
-
-    &-text {
-      font-size: 2rem;
-      pointer-events: none;
-    }
-
-    &-icon {
-      width: 3rem;
-      height: 3rem;
+  // Search Button
+  .btn {
+    &-search {
+      background-color: $color-silver;
+      border: none;
+      border-left: 0.35px solid $color-text--primary;
+      border-radius: 0 15px 15px 0;
+      padding: 0.5rem 2rem 0.5rem 2rem;
+      z-index: 10;
+      transition: 0.2s;
 
       @include respond-tablet-large {
-        width: 2rem;
-        height: 2rem;
+        padding: 1rem 2rem 1rem 2rem;
       }
-    }
-  }
 
-  &-temp {
-    padding: 2rem 1rem;
-    //padding: 1rem 0.5rem;
-    background-color: transparent;
-    border: 0.35px solid;
-    border-radius: 10px;
-    font-weight: 700;
-    min-width: 100px;
-
-    &--f {
-      color: $color-f;
-      border-color: $color-f;
-      transition: .15s all;
+      @include respond-phone {
+        padding: 0.5rem 2rem 0.5rem 2rem;
+      }
 
       &:hover {
-        background-color: $color-f;
-        color: white;
+        background-color: $color-silver--dark;
       }
 
-      &:focus, &:active {
-        background-color: $color-f--active;
-        border-color: $color-f--active;
-        color: white;
-      }
-      &--active {
-        background-color: $color-f--active;
-        border-color: $color-f--active;
-        color: white;
-      }
-    }
-
-    &--c {
-      color: $color-c;
-      border-color: $color-c;
-      transition: .15s all;
-
-      &:hover {
-        background-color: $color-c;
-        color: white;
-      }
-      &:focus, &:active {
-        background-color: $color-c--active;
-        border-color: $color-c--active;
-      }
-      &--active {
-        background-color: $color-c--active;
-        border-color: $color-c--active;
-        color: white;
-      }
-    }
-
-    &--k {
-      color: $color-k;
-      border-color: $color-k;
-      transition: .15s all;
-
-      &:hover {
-        background-color: $color-k;
-        color: white;
-      }
-      &:focus, &:active {
-        background-color: $color-k--active;
-        border-color: $color-k--active;
-        color: white;
-      }
-      &--active {
-        background-color: $color-k--active;
-        border-color: $color-k--active;
-        color: white;
+      &-icon {
+        color: #43434a;
+        font-size: 3.5rem;
       }
     }
   }
