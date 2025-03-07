@@ -1,4 +1,4 @@
-import '@/app/ui/global.scss';
+import '@/app/ui/styles/global.scss';
 import { roboto } from '@/app/ui/fonts';
 import { disableReactDevTools } from '@fvilers/disable-react-devtools';
 

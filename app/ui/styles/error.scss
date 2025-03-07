@@ -1,4 +1,4 @@
-@import './variables';
+@use './variables' as *;
 
 .error__global {
   display: flex;

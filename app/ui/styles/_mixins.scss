@@ -1,3 +1,5 @@
+@use './variables' as *;
+
 @mixin respond-desktop-4k {
   @media (max-width: $bp-desktop-4k) {
     @content;
